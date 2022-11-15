@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 public class Shooting : MonoBehaviour
 {
@@ -8,6 +10,10 @@ public class Shooting : MonoBehaviour
     [SerializeField] private float _fireRate = 3f;
     [SerializeField] private float _range = 10f;
     [SerializeField] private float _force = 125f;
+    [SerializeField] private int _currentAmmo;
+    [SerializeField] private int _allAmmo;
+
+    [SerializeField] private Text _countAmmo;
 
     public Camera Cam;
     private float _nextFire = 0f;
@@ -15,12 +21,18 @@ public class Shooting : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetButton("Fire1") && Time.time > _nextFire)
+        if(Input.GetButton("Fire1") && Time.time > _nextFire && _currentAmmo > 0)
         {
             _nextFire = Time.time + 1f / _fireRate;
             Shoot();
+            _currentAmmo -= 1;
+            
         }
+
+        _countAmmo.text = _currentAmmo + "/" + _allAmmo;
     }
+
+    
 
     void Shoot()
     {

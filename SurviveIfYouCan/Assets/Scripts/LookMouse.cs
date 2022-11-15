@@ -21,6 +21,7 @@ public class LookMouse : MonoBehaviour
     {
         _mouseX = Input.GetAxis("Mouse X") * IntensityMouse * Time.deltaTime;
         _mouseY = Input.GetAxis("Mouse Y") * IntensityMouse * Time.deltaTime;
+        //_mouseY = Mathf.Clamp(0, -90, 90);
 
         Player.Rotate(_mouseX * new Vector3(0, 1, 0));
 
