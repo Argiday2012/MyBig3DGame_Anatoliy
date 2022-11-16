@@ -11,7 +11,12 @@ public class Shooting : MonoBehaviour
     [SerializeField] private float _range = 10f;
     [SerializeField] private float _force = 125f;
     [SerializeField] private int _currentAmmo;
+    [SerializeField] private int _importantAmmo;
     [SerializeField] private int _allAmmo;
+
+    [SerializeField] private GameObject _forMuzzle;
+    [SerializeField] private AudioClip shotSFX;
+    [SerializeField] private AudioSource _audioBySource; 
 
     [SerializeField] private Text _countAmmo;
 
@@ -30,6 +35,11 @@ public class Shooting : MonoBehaviour
         }
 
         _countAmmo.text = _currentAmmo + "/" + _allAmmo;
+
+        if(Input.GetKey(KeyCode.R) && _allAmmo > 0)
+        {
+            Reload();
+        }
     }
 
     
@@ -46,6 +56,21 @@ public class Shooting : MonoBehaviour
             {
                 hit.rigidbody.AddForce(-hit.normal * _force);
             }
+        }
+    }
+
+    void Reload()
+    {
+        int _reason = _importantAmmo - _currentAmmo;
+        if(_allAmmo >= _reason)
+        {
+            _allAmmo = _allAmmo - _reason;
+            _currentAmmo = _importantAmmo;
+        }
+        else
+        {
+            _currentAmmo = _currentAmmo + _allAmmo;
+            _allAmmo = 0;
         }
     }
 

@@ -1581,7 +1581,8 @@ MonoBehaviour:
   _range: 10
   _force: 100
   _currentAmmo: 30
-  _allAmmo: 90
+  _importantAmmo: 30
+  _allAmmo: 10
   _countAmmo: {fileID: 1536405027}
   Cam: {fileID: 963194227}
 --- !u!1 &1536405026
@@ -2104,6 +2105,7 @@ MonoBehaviour:
   _range: 10
   _force: 125
   _currentAmmo: 11
+  _importantAmmo: 11
   _allAmmo: 33
   _countAmmo: {fileID: 1536405027}
   Cam: {fileID: 963194227}
