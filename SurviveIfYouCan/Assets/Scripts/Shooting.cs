@@ -14,8 +14,9 @@ public class Shooting : MonoBehaviour
     [SerializeField] private int _importantAmmo;
     [SerializeField] private int _allAmmo;
 
-    [SerializeField] private GameObject _forMuzzle;
-    [SerializeField] private AudioClip shotSFX;
+    [SerializeField] private ParticleSystem _forMuzzle;
+    [SerializeField] private Transform _bulletCreate;
+    [SerializeField] private AudioClip _shotSFX;
     [SerializeField] private AudioSource _audioBySource; 
 
     [SerializeField] private Text _countAmmo;
@@ -46,6 +47,10 @@ public class Shooting : MonoBehaviour
 
     void Shoot()
     {
+        _audioBySource.PlayOneShot(_shotSFX);
+        //Instantiate(_forMuzzle, _bulletCreate.position, _bulletCreate.rotation);
+        _forMuzzle.Play();
+
         RaycastHit hit;
 
         if (Physics.Raycast(Cam.transform.position, Cam.transform.forward, out hit, _range))
