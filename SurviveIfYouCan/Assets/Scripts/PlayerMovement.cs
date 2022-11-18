@@ -8,6 +8,8 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private float _speed = 10f;
     [SerializeField] private float _runSpeed = 30f;
+    [SerializeField] private float JumpForce;
+    private bool _inAir;
 
     public static float Horizontal;
     public static float Vertical;
@@ -16,6 +18,11 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
+    }
+
+    private void jump()
+    {
+        _rb.AddForce(transform.up * JumpForce, ForceMode.Impulse);
     }
 
     private void Update()
@@ -31,11 +38,25 @@ public class PlayerMovement : MonoBehaviour
         {
             Vertical = Input.GetAxis("Vertical");
         }
+
+        if(Input.GetButtonDown("Jump") && _inAir != true)
+        {
+            _inAir = true;
+            jump();
+        }
     }
 
     private void FixedUpdate()
     {
         transform.Translate(Horizontal * _speed * Time.fixedDeltaTime, 0, 0);
         transform.Translate(0, 0, Vertical * _speed * Time.fixedDeltaTime);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        {
+            _inAir = false;
+        }
     }
 }
