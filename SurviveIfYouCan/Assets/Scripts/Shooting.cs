@@ -21,7 +21,6 @@ public class Shooting : MonoBehaviour
 
     [SerializeField] private Text _countAmmo;
 
-    public GameObject Enemy;
 
     public Camera Cam;
     private float _nextFire = 0f;
@@ -63,7 +62,10 @@ public class Shooting : MonoBehaviour
             if(hit.rigidbody != null)
             {
                 hit.rigidbody.AddForce(-hit.normal * _force);
-                Destroy(Enemy);
+                if(hit.collider.tag == "Enemy")
+                {
+                    Destroy(hit.collider.gameObject);
+                }
             }
 
         }
@@ -83,5 +85,6 @@ public class Shooting : MonoBehaviour
             _allAmmo = 0;
         }
     }
+
 
 }
