@@ -13,6 +13,8 @@ public class Shooting : MonoBehaviour
     [SerializeField] private int _currentAmmo;
     [SerializeField] private int _importantAmmo;
     [SerializeField] private int _allAmmo;
+    [SerializeField] private int _addedScores;
+    [SerializeField] private int _allScores;
 
     [SerializeField] private ParticleSystem _forMuzzle;
     [SerializeField] private Transform _bulletCreate;
@@ -20,6 +22,7 @@ public class Shooting : MonoBehaviour
     [SerializeField] private AudioSource _audioBySource; 
 
     [SerializeField] private Text _countAmmo;
+    [SerializeField] private Text _countScores;
 
 
     public Camera Cam;
@@ -37,6 +40,7 @@ public class Shooting : MonoBehaviour
         }
 
         _countAmmo.text = _currentAmmo + "/" + _allAmmo;
+        _countScores.text = _allScores + "/";
 
         if(Input.GetKey(KeyCode.R) && _allAmmo > 0)
         {
@@ -65,6 +69,7 @@ public class Shooting : MonoBehaviour
                 if(hit.collider.tag == "Enemy")
                 {
                     Destroy(hit.collider.gameObject);
+                    _allScores = _allScores + _addedScores;
                 }
             }
 
