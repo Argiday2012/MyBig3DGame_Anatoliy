@@ -41,6 +41,12 @@ public class PauseMenu : MonoBehaviour
         Cursor.lockState = CursorLockMode.Confined;
     }
 
+    public void RestartLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 0);
+        Time.timeScale = 1f;
+    }
+
     public void LoadMenu()
     {
         Time.timeScale = 1f;

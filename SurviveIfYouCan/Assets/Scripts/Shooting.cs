@@ -29,15 +29,19 @@ public class Shooting : MonoBehaviour
     private float _nextFire = 0f;
 
 
-    private void Update()
+    public void Fire()
     {
-        if(Input.GetButton("Fire1") && Time.time > _nextFire && _currentAmmo > 0)
+        if (/*Input.GetButton("Fire1") &&*/ Time.time > _nextFire && _currentAmmo > 0)
         {
             _nextFire = Time.time + 1f / _fireRate;
             Shoot();
             _currentAmmo -= 1;
-            
         }
+    }
+
+    private void Update()
+    {
+        
 
         _countAmmo.text = _currentAmmo + "/" + _allAmmo;
         _countScores.text = _allScores + "";
@@ -50,7 +54,7 @@ public class Shooting : MonoBehaviour
 
     
 
-    void Shoot()
+    public void Shoot()
     {
         _audioBySource.PlayOneShot(_shotSFX);
         //Instantiate(_forMuzzle, _bulletCreate.position, _bulletCreate.rotation);
@@ -76,7 +80,7 @@ public class Shooting : MonoBehaviour
         }
     }
 
-    void Reload()
+    public void Reload()
     {
         int _reason = _importantAmmo - _currentAmmo;
         if(_allAmmo >= _reason)

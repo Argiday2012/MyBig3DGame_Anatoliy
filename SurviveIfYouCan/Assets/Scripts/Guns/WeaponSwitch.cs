@@ -11,30 +11,45 @@ public class WeaponSwitch : MonoBehaviour
         WeaponSelect();
     }
 
-    private void Update()
+    public void ChangeWeapon()
     {
         int _currentWeapon = _weaponSwitch;
+        if (_weaponSwitch >= transform.childCount - 1)
+        {
+            _weaponSwitch = 0;
+        }
+        else
+        {
+            _weaponSwitch++;
+        }
+
+        if (_weaponSwitch <= 0)
+        {
+            _weaponSwitch = transform.childCount - 1;
+        }
+        else
+        {
+            _weaponSwitch--;
+        }
+
+        if (_currentWeapon != _weaponSwitch)
+        {
+            WeaponSelect();
+        }
+    }
+
+    private void Update()
+    {
+        
 
         if(Input.GetAxis("Mouse ScrollWheel") > 0f)
         {
-            if(_weaponSwitch >= transform.childCount - 1 )
-            {
-                _weaponSwitch = 0;
-            }
-            else
-            {
-                _weaponSwitch++;
-            }
+            
         }
 
         if (Input.GetAxis("Mouse ScrollWheel") < 0f)
         {
-            if (_weaponSwitch <= 0)
-            {
-                _weaponSwitch = transform.childCount - 1;
-            }
-            else
-                _weaponSwitch--;
+            
         }
 
         if(Input.GetKeyDown(KeyCode.Alpha1))
@@ -46,13 +61,10 @@ public class WeaponSwitch : MonoBehaviour
             _weaponSwitch = 1;
         }
 
-        if (_currentWeapon != _weaponSwitch)
-        {
-            WeaponSelect();
-        }
+        
     }
 
-    void WeaponSelect()
+    public void WeaponSelect()
     {
         int i = 0;
         foreach(Transform weapon in transform)

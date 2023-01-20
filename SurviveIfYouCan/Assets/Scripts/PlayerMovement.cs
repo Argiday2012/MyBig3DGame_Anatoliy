@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _speed = 10f;
     [SerializeField] private float _runSpeed = 30f;
     [SerializeField] private float JumpForce;
+    public Joystick _joystick;
     private bool _inAir;
 
     public static float Horizontal;
@@ -20,15 +21,19 @@ public class PlayerMovement : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
     }
 
-    private void jump()
+    public void Jump()
     {
-        _rb.AddForce(transform.up * JumpForce, ForceMode.Impulse);
+        if (_inAir != true)
+        {
+            _rb.AddForce(transform.up * JumpForce, ForceMode.Impulse);
+        }
     }
 
     private void Update()
     {
-        
-            Horizontal = Input.GetAxis("Horizontal");
+
+        //Horizontal = Input.GetAxis("Horizontal");
+        Horizontal = _joystick.Horizontal;
 
         if (Input.GetKey(KeyCode.LeftShift))
         {
@@ -36,14 +41,15 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            Vertical = Input.GetAxis("Vertical");
+            //Vertical = Input.GetAxis("Vertical");
+            Vertical = _joystick.Vertical;
         }
 
-        if(Input.GetButtonDown("Jump") && _inAir != true)
-        {
-            _inAir = true;
-            jump();
-        }
+        //if(/*Input.GetButtonDown("Jump") && */  _inAir != true)
+        //{
+        //    _inAir = true;
+        //    Jump();
+        //}
     }
 
     private void FixedUpdate()
